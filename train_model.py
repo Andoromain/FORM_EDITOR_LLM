@@ -1,4 +1,4 @@
-# train_model.py
+# train_model.py (version corrigée)
 import torch
 from transformers import (
     AutoModelForCausalLM,
@@ -52,7 +52,8 @@ class FormGeneratorTrainer:
         self.model = get_peft_model(model, lora_config)
         
         print(f"Modèle chargé avec {self.model.num_parameters()} paramètres")
-        print(f"Paramètres entraînables: {self.model.num_parameters(only_trainable=True)}")
+        trainable_params = sum(p.numel() for p in self.model.parameters() if p.requires_grad)
+        print(f"Paramètres entraînables: {trainable_params:,}")
         
     def prepare_dataset(self, dataset_path="training_dataset.jsonl"):
         """
@@ -60,6 +61,8 @@ class FormGeneratorTrainer:
         """
         print("Chargement du dataset...")
         dataset = load_dataset('json', data_files=dataset_path, split='train')
+        
+        print(f"Dataset chargé: {len(dataset)} exemples")
         
         def format_prompt(example):
             """Format le prompt pour l'entraînement"""
@@ -73,7 +76,10 @@ class FormGeneratorTrainer:
         dataset = dataset.map(format_prompt)
         
         # Split train/validation
-        dataset = dataset.train_test_split(test_size=0.1)
+        dataset = dataset.train_test_split(test_size=0.1, seed=42)
+        
+        print(f"Train: {len(dataset['train'])} exemples")
+        print(f"Validation: {len(dataset['test'])} exemples")
         
         return dataset
     
@@ -81,6 +87,8 @@ class FormGeneratorTrainer:
         """
         Tokenize le dataset
         """
+        print("Tokenization du dataset...")
+        
         def tokenize_function(examples):
             return self.tokenizer(
                 examples["text"],
@@ -95,9 +103,11 @@ class FormGeneratorTrainer:
             remove_columns=dataset["train"].column_names
         )
         
+        print("Tokenization terminée")
+        
         return tokenized_dataset
     
-    def train(self, output_dir="./form-generator-model"):
+    def train(self, output_dir="./form-generator-model", num_epochs=3):
         """
         Lance l'entraînement
         """
@@ -105,23 +115,35 @@ class FormGeneratorTrainer:
         dataset = self.prepare_dataset()
         tokenized_dataset = self.tokenize_dataset(dataset)
         
-        # Configuration d'entraînement
+        # Configuration d'entraînement - VERSION CORRIGÉE
         training_args = TrainingArguments(
             output_dir=output_dir,
-            num_train_epochs=3,
+            num_train_epochs=num_epochs,
             per_device_train_batch_size=4,
             per_device_eval_batch_size=4,
             gradient_accumulation_steps=4,
             learning_rate=2e-4,
             fp16=True if self.device == "cuda" else False,
-            logging_steps=10,
-            save_steps=100,
+            
+            # Stratégies de sauvegarde et évaluation - ALIGNÉES
+            evaluation_strategy="steps",  # ✅ Changé de "no" à "steps"
             eval_steps=100,
+            save_strategy="steps",
+            save_steps=100,
+            
+            logging_steps=10,
             save_total_limit=3,
-            load_best_model_at_end=True,
+            load_best_model_at_end=True,  # ✅ Maintenant compatible
+            metric_for_best_model="loss",  # ✅ Ajouté pour sélectionner le meilleur modèle
+            greater_is_better=False,  # ✅ Pour la loss, plus petit = meilleur
+            
             report_to="none",
             warmup_steps=100,
-            optim="adamw_torch"
+            optim="adamw_torch",
+            
+            # Paramètres supplémentaires utiles
+            logging_dir=f"{output_dir}/logs",
+            push_to_hub=False,
         )
         
         # Data collator
@@ -140,20 +162,42 @@ class FormGeneratorTrainer:
         )
         
         # Entraînement
+        print("\n" + "="*50)
         print("Début de l'entraînement...")
+        print("="*50 + "\n")
+        
         trainer.train()
         
-        # Sauvegarde
-        print(f"Sauvegarde du modèle dans {output_dir}")
+        # Sauvegarde finale
+        print(f"\nSauvegarde du modèle dans {output_dir}")
         trainer.save_model()
         self.tokenizer.save_pretrained(output_dir)
+        
+        # Sauvegarder aussi la configuration LoRA
+        self.model.save_pretrained(output_dir)
+        
+        print("\n" + "="*50)
+        print("Entraînement terminé avec succès!")
+        print("="*50 + "\n")
         
         return trainer
 
 def main():
-    trainer = FormGeneratorTrainer(model_name="microsoft/phi-2")
+    # Choix du modèle - options alternatives si phi-2 pose problème
+    models = {
+        "phi-2": "microsoft/phi-2",
+        "tinyllama": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        "mistral": "mistralai/Mistral-7B-v0.1",
+    }
+    
+    # Sélectionner le modèle
+    selected_model = "phi-2"  # Changez selon vos besoins
+    
+    print(f"Utilisation du modèle: {models[selected_model]}")
+    
+    trainer = FormGeneratorTrainer(model_name=models[selected_model])
     trainer.load_and_prepare_model()
-    trainer.train()
+    trainer.train(num_epochs=3)
 
 if __name__ == "__main__":
     main()
