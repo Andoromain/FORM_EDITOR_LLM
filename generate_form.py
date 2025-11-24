@@ -5,7 +5,7 @@ from peft import PeftModel
 import json
 
 class FormGenerator:
-    def __init__(self, model_path="./form-generator-model"):
+    def __init__(self, model_path="/content/tinyllama-form-generator"):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
         print("Chargement du modèle...")
