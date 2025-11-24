@@ -1,0 +1,4239 @@
+[
+  {
+    "code": "1",
+    "label": "Modifier societe",
+    "options": [
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "step",
+        "class": "col-12 mt-4",
+        "label": "Selectionner le type de changement",
+        "ordre": 1,
+        "values": [
+          {
+            "label": "Informations juridiques",
+            "value": "informationJuridique"
+          },
+          {
+            "label": "Informations sur l'exercice social",
+            "value": "informationExerciceSocial"
+          },
+          {
+            "label": "Imposition",
+            "value": "imposition"
+          },
+          {
+            "label": "Siège social",
+            "value": "siegeSocial"
+          },
+          {
+            "label": "Associés",
+            "value": "associe"
+          },
+          {
+            "label": "Dirigeants non associés",
+            "value": "dirigeantNonAssocie"
+          },
+          {
+            "label": "Capital",
+            "value": "capital"
+          },
+          {
+            "label": "Pièces jointes",
+            "value": "pieceJointe"
+          },
+          {
+            "label": "Frais engagés",
+            "value": "fraisEngage"
+          },
+          {
+            "label": "Observations (Si vous avez des informations à nous transmettre)",
+            "value": "observation"
+          }
+        ],
+        "is_dynamic": false,
+        "is_required": true
+      },
+      {
+        "step": 1,
+        "type": "multiselect",
+        "champ": "motif",
+        "label": "Selectionner le motif",
+        "ordre": 2,
+        "values": [
+          {
+            "label": "Modifier nom de la société",
+            "value": "Modifier nom de la société"
+          },
+          {
+            "label": "Modifier le siren",
+            "value": "Modifier le siren"
+          },
+          {
+            "label": "Changer la forme juridique",
+            "value": "Changer la forme juridique"
+          },
+          {
+            "label": "Modifer l'activité de la société",
+            "value": "Modifer l'activité de la société"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "informationJuridique"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "personne_morale.denomination",
+        "class": "col-12 mt-2",
+        "label": "Nom de la société",
+        "ordre": 3,
+        "maxLength": 100,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "informationJuridique"
+          },
+          {
+            "champ": "motif",
+            "value": [
+              "Modifier nom de la société"
+            ]
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "personne_morale.siren",
+        "label": "Siren",
+        "ordre": 4,
+        "maxLength": 9,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "informationJuridique"
+          },
+          {
+            "champ": "motif",
+            "value": [
+              null,
+              "Modifier le siren"
+            ]
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "personne_morale.forme_juridique",
+        "label": "Forme juridique",
+        "ordre": 5,
+        "values": [
+          {
+            "label": "SARL (Société à Responsabilité Limitée)",
+            "value": "sarl"
+          },
+          {
+            "label": "SAS (Société par Actions Simplifiée)",
+            "value": "sas"
+          },
+          {
+            "label": "SCI (Société Civile Immobilière)",
+            "value": "sc"
+          },
+          {
+            "label": "EURL (Entreprise Unipersonnelle à Responsabilité Limitée)",
+            "value": "eurl"
+          },
+          {
+            "label": "SASU (Société par Actions Simplifiée Unipersonnelle)",
+            "value": "sasu"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "informationJuridique"
+          },
+          {
+            "champ": "motif",
+            "value": [
+              null,
+              "Changer la forme juridique"
+            ]
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "textarea",
+        "champ": "societe.objet_social",
+        "label": "Activité de la société",
+        "ordre": 6,
+        "maxLength": 250,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "informationJuridique"
+          },
+          {
+            "champ": "motif",
+            "value": [
+              null,
+              "Modifer l'activité de la société"
+            ]
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "societe.debut_exercice_social",
+        "label": "Ouverture de l'exercice social",
+        "ordre": 7,
+        "values": [
+          {
+            "label": "1er janvier",
+            "value": "1"
+          },
+          {
+            "label": "1er février",
+            "value": "2"
+          },
+          {
+            "label": "1er mars",
+            "value": "3"
+          },
+          {
+            "label": "1er avril",
+            "value": "4"
+          },
+          {
+            "label": "1er mai",
+            "value": "5"
+          },
+          {
+            "label": "1er juin",
+            "value": "6"
+          },
+          {
+            "label": "1er juillet",
+            "value": "7"
+          },
+          {
+            "label": "1er août",
+            "value": "8"
+          },
+          {
+            "label": "1er septembre",
+            "value": "9"
+          },
+          {
+            "label": "1er octobre",
+            "value": "10"
+          },
+          {
+            "label": "1er novembre",
+            "value": "11"
+          },
+          {
+            "label": "1er décembre",
+            "value": "12"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "informationExerciceSocial"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "societe.fin_exercice_social",
+        "label": "Clôture de l'exercice social",
+        "ordre": 8,
+        "values": [
+          {
+            "label": "31 janvier",
+            "value": "1"
+          },
+          {
+            "label": "28 février",
+            "value": "2"
+          },
+          {
+            "label": "31 mars",
+            "value": "3"
+          },
+          {
+            "label": "30 avril",
+            "value": "4"
+          },
+          {
+            "label": "31 mai",
+            "value": "5"
+          },
+          {
+            "label": "30 juin",
+            "value": "6"
+          },
+          {
+            "label": "31 juillet",
+            "value": "7"
+          },
+          {
+            "label": "31 août",
+            "value": "8"
+          },
+          {
+            "label": "30 septembre",
+            "value": "9"
+          },
+          {
+            "label": "31 octobre",
+            "value": "10"
+          },
+          {
+            "label": "30 novembre",
+            "value": "11"
+          },
+          {
+            "label": "31 décembre",
+            "value": "12"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "informationExerciceSocial"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "date",
+        "champ": "societe.debut_immatriculation",
+        "label": "Date de début d'immatriculation souhaitée",
+        "ordre": 9,
+        "depends_on": {
+          "champ": "step",
+          "value": "informationExerciceSocial"
+        },
+        "is_required": false,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "date",
+        "champ": "societe.cloture_premier_exercice_social",
+        "label": "Date de clôture du premier exercice social",
+        "ordre": 10,
+        "depends_on": {
+          "champ": "step",
+          "value": "informationExerciceSocial"
+        },
+        "is_required": false,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "societe.assujetie_is",
+        "label": "Régime d'imposition",
+        "ordre": 11,
+        "values": [
+          {
+            "label": "Impôt sur les Sociétés (IS)",
+            "value": "1"
+          },
+          {
+            "label": "Impôt sur le Revenu (IR)",
+            "value": "0"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "imposition"
+        },
+        "is_required": true,
+        "has_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "coordonnee.adresse",
+        "label": "Adresse",
+        "ordre": 12,
+        "depends_on": {
+          "champ": "step",
+          "value": "siegeSocial"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "coordonnee.adresse1",
+        "label": "Complément d'adresse",
+        "ordre": 13,
+        "depends_on": {
+          "champ": "step",
+          "value": "siegeSocial"
+        },
+        "is_required": false,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "coordonnee.code_postal",
+        "label": "Code postal",
+        "ordre": 14,
+        "maxLength": 5,
+        "depends_on": {
+          "champ": "step",
+          "value": "siegeSocial"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "coordonnee.ville",
+        "label": "Ville",
+        "ordre": 15,
+        "depends_on": {
+          "champ": "step",
+          "value": "siegeSocial"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "coordonnee.pays",
+        "label": "Pays",
+        "ordre": 16,
+        "depends_on": {
+          "champ": "step",
+          "value": "siegeSocial"
+        },
+        "is_required": true,
+        "has_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "siege_social.type",
+        "label": "Cette adresse est",
+        "ordre": 17,
+        "values": [
+          {
+            "label": "Le domicile du dirigeant",
+            "value": "Le domicile"
+          },
+          {
+            "label": "Une domiciliation",
+            "value": "Une domiciliation"
+          },
+          {
+            "label": "Autre",
+            "value": "Autre"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "siegeSocial"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "siege_social.libelle_type_autre",
+        "label": "Veuillez préciser",
+        "ordre": 18,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "siegeSocial"
+          },
+          {
+            "champ": "siege_social.type",
+            "value": "Autre"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "siege_social.type_location",
+        "label": "Le dirigeant en est",
+        "ordre": 19,
+        "values": [
+          {
+            "label": "Locataire",
+            "value": "Locataire"
+          },
+          {
+            "label": "Copropriétaire",
+            "value": "Copropriétaire"
+          },
+          {
+            "label": "Propriétaire",
+            "value": "Propriétaire"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "siegeSocial"
+          },
+          {
+            "champ": "siege_social.type",
+            "value": "Le domicile"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "capital.capital_social",
+        "label": "Capital",
+        "ordre": 20,
+        "suffix": "€",
+        "depends_on": {
+          "champ": "step",
+          "value": "capital"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "capital.apport_numeraire_libere_integralement",
+        "label": "Le capital est-il libéré intégralement lors de la constitution de la société ?",
+        "ordre": 21,
+        "values": [
+          {
+            "label": "Oui",
+            "value": "1"
+          },
+          {
+            "label": "Non",
+            "value": "0"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "capital"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "capital.montant_libere",
+        "label": "Montant libéré",
+        "ordre": 22,
+        "suffix": "€",
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "capital"
+          },
+          {
+            "champ": "capital.apport_numeraire_libere_integralement",
+            "value": "0"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "capital.banque",
+        "label": "Banque (ou Notaire)  où sera versé le capital",
+        "ordre": 23,
+        "maxLength": 60,
+        "depends_on": {
+          "champ": "step",
+          "value": "capital"
+        },
+        "is_required": false,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "capital.adresse",
+        "label": "Adresse de la banque (ou Notaire) où sera versé le capital",
+        "ordre": 24,
+        "maxLength": 50,
+        "depends_on": {
+          "champ": "step",
+          "value": "capital"
+        },
+        "is_required": false,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "extra.frais_engage",
+        "label": "Avez-vous engagé des frais pour la societe avant la création?",
+        "ordre": 25,
+        "values": [
+          {
+            "label": "Oui",
+            "value": "1"
+          },
+          {
+            "label": "Non",
+            "value": "0"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "fraisEngage"
+        },
+        "is_required": false,
+        "has_dependency": true
+      },
+      {
+        "step": 1,
+        "type": "date",
+        "champ": "frais_engage.date",
+        "label": "Date",
+        "ordre": 26,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "fraisEngage"
+          },
+          {
+            "champ": "extra.frais_engage",
+            "value": "1"
+          }
+        ],
+        "max_increment": 10,
+        "has_dependency": true,
+        "increment_group": "Frais engagé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "frais_engage.fournisseur",
+        "label": "Fournisseur",
+        "ordre": 27,
+        "maxLength": 50,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "fraisEngage"
+          },
+          {
+            "champ": "extra.frais_engage",
+            "value": "1"
+          }
+        ],
+        "max_increment": 10,
+        "has_dependency": true,
+        "increment_group": "Frais engagé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "frais_engage.objet",
+        "label": "Objet * (ex: signature d'un bail commercial)",
+        "ordre": 28,
+        "maxLength": 50,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "fraisEngage"
+          },
+          {
+            "champ": "extra.frais_engage",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Frais engagé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "frais_engage.montant",
+        "label": "Montant * (€ TTC)",
+        "ordre": 29,
+        "suffix": "€",
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "fraisEngage"
+          },
+          {
+            "champ": "extra.frais_engage",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Frais engagé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "textarea",
+        "champ": "observation.observation",
+        "label": "Si vous avez des informations à nous transmettre, veuillez les noter ici",
+        "ordre": 30,
+        "maxLength": 200,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "observation"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "add_modify_or_associe",
+        "label": "Ajouter ou Modifier ou Supprimer un associé",
+        "ordre": 32,
+        "values": [
+          {
+            "label": "Ajouter un(e) nouveau(lle) associé(e)",
+            "value": "ajouter_associe"
+          },
+          {
+            "label": "Modifier un associé",
+            "value": "modify_associe"
+          },
+          {
+            "label": "Supprimer un associé",
+            "value": "supprimer_associé"
+          }
+        ],
+        "depends_on": {
+          "champ": "step",
+          "value": "associe"
+        },
+        "is_required": true,
+        "has_dependency": true
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Type de l'associé",
+        "label": "Type de l'associé",
+        "ordre": 33,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_color": null,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "associe.type_associe",
+        "label": "Type de l'associé",
+        "ordre": 34,
+        "values": [
+          {
+            "label": "Particulier",
+            "value": "pers_physique"
+          },
+          {
+            "label": "Société",
+            "value": "pers_morale"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "max_increment": null,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Identité de l'associé",
+        "label": "Identité de l'associé",
+        "ordre": 35,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_color": "grey",
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.personne_physique.civilite",
+        "label": "Civilité",
+        "ordre": 36,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.nom",
+        "label": "Nom",
+        "ordre": 37,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.prenom",
+        "label": "Prenoms",
+        "ordre": 38,
+        "maxLength": 100,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "date",
+        "champ": "associe.personne_physique.date_naissance",
+        "label": "Date de naissance",
+        "ordre": 39,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.ville_naissance",
+        "label": "Ville de naissance",
+        "ordre": 40,
+        "maxLength": 50,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.numero_securite_sociale",
+        "label": "Numéro de sécurité sociale",
+        "ordre": 41,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.personne_physique.nationalite",
+        "label": "Nationalité",
+        "ordre": 42,
+        "is_dynamic": true,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "dynamic_values": "NATIONALITE",
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.etat_matrimonial",
+        "label": "Situation matrimoniale",
+        "ordre": 43,
+        "values": [
+          {
+            "label": "Célibataire",
+            "value": "Célibataire"
+          },
+          {
+            "label": "Pacsé sous le régime légal de séparation de biens",
+            "value": "Pacsé sous le régime légal de séparation de biens"
+          },
+          {
+            "label": "Pacsé sous le régime conventionnel l'indivision",
+            "value": "Pacsé sous le régime conventionnel l'indivision"
+          },
+          {
+            "label": "Marié sans contrat de mariage",
+            "value": "Marié sans contrat de mariage"
+          },
+          {
+            "label": "Marié sous le régime de la séparation de biens",
+            "value": "Marié sous le régime de la séparation de biens"
+          },
+          {
+            "label": "Marié sous le régime la communauté universelle",
+            "value": "Marié sous le régime la communauté universelle"
+          },
+          {
+            "label": "Marié sous le régime la communauté légale réduite aux acquêts",
+            "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+          },
+          {
+            "label": "Marié",
+            "value": "Marié"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_morale.siren",
+        "label": "Siren",
+        "ordre": 44,
+        "maxLength": 9,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_morale"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_morale.denomination",
+        "label": "Nom de la société",
+        "ordre": 45,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_morale"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_morale.nom_greffe",
+        "label": "Localisation du greffe",
+        "ordre": 46,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_morale"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Coordonnées de l'associé",
+        "label": "Coordonnées de l'associé",
+        "ordre": 47,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_color": "grey",
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.adresse",
+        "label": "Adresse",
+        "ordre": 48,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.adresse1",
+        "label": "Complément d'adresse",
+        "ordre": 49,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.code_postal",
+        "label": "Code postal",
+        "ordre": 50,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.ville",
+        "label": "Ville",
+        "ordre": 51,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.pays",
+        "label": "Pays",
+        "ordre": 52,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.telephone",
+        "label": "Téléphone",
+        "ordre": 53,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "email",
+        "champ": "associe.coordonnee.email",
+        "label": "Email",
+        "ordre": 54,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Identité du représentant de l'associé",
+        "label": "Identité du représentant de l'associé",
+        "ordre": 55,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.qualite_mandataire_personne_physique",
+        "label": "Qualité du représentant de la société",
+        "ordre": 56,
+        "maxLength": 30,
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.mandataire_personne_physique.civilite",
+        "label": "Civilité",
+        "ordre": 57,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_personne_physique.nom",
+        "label": "Nom",
+        "ordre": 58,
+        "maxLength": 200,
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_personne_physique.prenom",
+        "label": "Prénoms",
+        "ordre": 59,
+        "maxLength": 150,
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "date",
+        "champ": "associe.mandataire_personne_physique.date_naissance",
+        "label": "Date de naissance",
+        "ordre": 60,
+        "maxLength": 150,
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_personne_physique.ville_naissance",
+        "label": "Ville de naissance",
+        "ordre": 61,
+        "maxLength": 50,
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_personne_physique.pays_naissance",
+        "label": "Pays de naissance",
+        "ordre": 62,
+        "maxLength": 50,
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.mandataire_personne_physique.nationalite",
+        "label": "Nationalité",
+        "ordre": 63,
+        "maxLength": 50,
+        "is_dynamic": true,
+        "is_required": true,
+        "dynamic_values": "NATIONALITE",
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Coordonnées du représentant de l'associé",
+        "label": "Coordonnées du représentant de l'associé",
+        "ordre": 64,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_coordonnee.addrese",
+        "label": "Adresse",
+        "ordre": 65,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_coordonnee.addresse1",
+        "label": "Complément d'adresse",
+        "ordre": 66,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "associe.mandataire_coordonnee.code_postal",
+        "label": "Code postal",
+        "ordre": 67,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "maxLength": 5,
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_coordonnee.ville",
+        "label": "Ville",
+        "ordre": 68,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "maxLength": 30,
+        "is_required": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.mandataire_coordonnee.pays",
+        "label": "Pays",
+        "ordre": 69,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "maxLength": 30,
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Identité du conjoint",
+        "label": "Identité du conjoint",
+        "ordre": 70,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "select",
+        "champ": "associe.conjoint_personne_physique.civilite",
+        "label": "Civilité",
+        "ordre": 71,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_personne_physique.nom",
+        "label": "Nom",
+        "ordre": 72,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_personne_physique.prenom",
+        "label": "Prénom",
+        "ordre": 73,
+        "style": null,
+        "values": [
+          {
+            "label": "Prénom",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Coordonnées du conjoint",
+        "label": "Coordonnées du conjoint",
+        "ordre": 74,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_coordonnee.adresse",
+        "label": "Adresse",
+        "ordre": 75,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_coordonnee.addresse1",
+        "label": "Complément d'adresse",
+        "ordre": 76,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_coordonnee.code_postal",
+        "label": "Code postal",
+        "ordre": 77,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "maxLength": 5,
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_coordonnee.ville",
+        "label": "Ville",
+        "ordre": 78,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "maxLength": 20,
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "text",
+        "champ": "associe.conjoint_coordonnee.pays",
+        "label": "Pays",
+        "ordre": 79,
+        "style": null,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          }
+        ],
+        "maxLength": 20,
+        "titre_size": "h4",
+        "is_required": true,
+        "titre_divider": false,
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime légal de séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Pacsé sous le régime conventionnel l'indivision"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sans contrat de mariage"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime de la séparation de biens"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté universelle"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+              },
+              {
+                "champ": "associe.etat_matrimonial",
+                "value": "Marié"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Apports",
+        "label": "Apports",
+        "ordre": 80,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_color": "grey",
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              },
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_morale"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "associe.apport_numeraire",
+        "label": "Apport en numéraire",
+        "ordre": 81,
+        "suffix": "€",
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Informations Dirigeant",
+        "label": "Informations Dirigeant",
+        "ordre": 82,
+        "style": "color:#2A3849 !important",
+        "titre_size": "h4",
+        "is_required": false,
+        "titre_color": "grey",
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "ajouter_associe"
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "associe.type_associe",
+                "value": "pers_physique"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "associe.dirigeant.dirigeant",
+        "label": "L'associé est-il également dirigeant de la société ?",
+        "ordre": 83,
+        "values": [
+          {
+            "label": "Oui",
+            "value": "1"
+          },
+          {
+            "label": "Non",
+            "value": "0"
+          }
+        ],
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "associe.dirigeant.fonction",
+        "label": "Qualité de dirigeant",
+        "ordre": 84,
+        "values": [
+          {
+            "label": "President",
+            "value": "President"
+          },
+          {
+            "label": "Gérant",
+            "value": "Gérant"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "associe.dirigeant",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.identite_pere",
+        "label": "Nom et prénoms du père",
+        "ordre": 85,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          },
+          {
+            "champ": "associe.dirigeant",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.identite_mere",
+        "label": "Nom de jeune fille et prénoms de la mère",
+        "ordre": 86,
+        "maxLength": 200,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "ajouter_associe"
+          },
+          {
+            "champ": "associe.dirigeant",
+            "value": "1"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "increment_group": "Associé",
+        "is_incrementable": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.id",
+        "label": "Selectionner l'associé",
+        "ordre": 87,
+        "is_dynamic": true,
+        "is_required": true,
+        "dynamic_values": "ASSOCIE",
+        "has_dependency": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              }
+            ]
+          },
+          {
+            "operator": "OR",
+            "conditions": [
+              {
+                "champ": "add_modify_or_associe",
+                "value": "modify_associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "supprimer_associé"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "textarea",
+        "champ": "description",
+        "label": "Description",
+        "ordre": 88,
+        "maxLength": 300,
+        "is_required": true,
+        "has_dependency": true,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "supprimer_associé"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "type_modification_associe",
+        "label": "Type de modification de l'associé",
+        "ordre": 89,
+        "values": [
+          {
+            "label": "Identité de l'associé",
+            "value": "identite_associe"
+          },
+          {
+            "label": "Coordonnée de l'associé",
+            "value": "coordonnee_associe"
+          },
+          {
+            "label": "Apports",
+            "value": "apport"
+          },
+          {
+            "label": "Informations Dirigeant",
+            "value": "information_dirigeant"
+          }
+        ],
+        "is_required": true,
+        "has_dependency": true,
+        "increment_group": null,
+        "is_incrementable": false,
+        "has_et_dependency": false,
+        "has_or_dependency": false,
+        "depends_on_combined": [
+          {
+            "operator": "AND",
+            "conditions": [
+              {
+                "champ": "step",
+                "value": "associe"
+              },
+              {
+                "champ": "add_modify_or_associe",
+                "value": "modify_associe"
+              }
+            ]
+          }
+        ],
+        "has_combined_dependency": true,
+        "combined_groups_operator": "AND"
+      },
+      {
+        "icon": "mdi-hand-pointing-right",
+        "step": 1,
+        "type": "titre",
+        "champ": "Identité de l'associé modif",
+        "label": "Identité de l'associé",
+        "ordre": 90,
+        "titre_size": "h4",
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false,
+        "has_combined_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "associe.type_associe",
+        "label": "Type de l'associé",
+        "ordre": 91,
+        "values": [
+          {
+            "label": "Particulier",
+            "value": "pers_physique"
+          },
+          {
+            "label": "Société",
+            "value": "pers_morale"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.personne_physique.civilite",
+        "label": "Civilité",
+        "ordre": 92,
+        "values": [
+          {
+            "label": "Monsieur",
+            "value": "Monsieur"
+          },
+          {
+            "label": "Madame",
+            "value": "Madame"
+          },
+          {
+            "label": "Mademoiselle",
+            "value": "Mademoiselle"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.nom",
+        "label": "Nom",
+        "ordre": 93,
+        "maxLength": 100,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.prenom",
+        "label": "Prénoms",
+        "ordre": 94,
+        "maxLength": 100,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "date",
+        "champ": "associe.personne_physique.date_naissance",
+        "label": "Date de naissance",
+        "ordre": 95,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.ville_naissance",
+        "label": "Ville de naissance",
+        "ordre": 96,
+        "maxLength": 50,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.numero_securite_sociale",
+        "label": "Numéro de sécurité sociale",
+        "ordre": 97,
+        "maxLength": 15,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.personne_physique.nationalite",
+        "label": "Nationalité",
+        "ordre": 98,
+        "is_dynamic": true,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "dynamic_values": "NATIONALITE",
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "select",
+        "champ": "associe.etat_matrimonial",
+        "label": "Situation matrimoniale",
+        "ordre": 99,
+        "values": [
+          {
+            "label": "Célibataire",
+            "value": "Célibataire"
+          },
+          {
+            "label": "Pacsé sous le régime légal de séparation de biens",
+            "value": "Pacsé sous le régime légal de séparation de biens"
+          },
+          {
+            "label": "Pacsé sous le régime conventionnel l'indivision",
+            "value": "Pacsé sous le régime conventionnel l'indivision"
+          },
+          {
+            "label": "Marié sans contrat de mariage",
+            "value": "Marié sans contrat de mariage"
+          },
+          {
+            "label": "Marié sous le régime de la séparation de biens",
+            "value": "Marié sous le régime de la séparation de biens"
+          },
+          {
+            "label": "Marié sous le régime la communauté universelle",
+            "value": "Marié sous le régime la communauté universelle"
+          },
+          {
+            "label": "Marié sous le régime la communauté légale réduite aux acquêts",
+            "value": "Marié sous le régime la communauté légale réduite aux acquêts"
+          },
+          {
+            "label": "Marié",
+            "value": "Marié"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_physique"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "associe.personne_morale.siren",
+        "label": "Siren",
+        "ordre": 100,
+        "maxLength": 9,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_morale"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_morale.denomination",
+        "label": "Nom de la société",
+        "ordre": 101,
+        "maxLength": 50,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_morale"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_morale.nom_greffe",
+        "label": "Localisation du greffe",
+        "ordre": 102,
+        "maxLength": 100,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "identite_associe"
+          },
+          {
+            "champ": "associe.type_associe",
+            "value": "pers_morale"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false,
+        "has_combined_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.adresse",
+        "label": "Adresse",
+        "ordre": 103,
+        "maxLength": 50,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.adresse1",
+        "label": "Complément d'adresse",
+        "ordre": 104,
+        "maxLength": 50,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.code_postal",
+        "label": "Code postal",
+        "ordre": 105,
+        "maxLength": 5,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.ville",
+        "label": "Ville",
+        "ordre": 106,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.coordonnee.pays",
+        "label": "Pays",
+        "ordre": 107,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "associe.coordonnee.telephone",
+        "label": "Téléphone",
+        "ordre": 108,
+        "maxLength": 20,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "email",
+        "champ": "associe.coordonnee.email",
+        "label": "Email",
+        "ordre": 109,
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "coordonnee_associe"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "number",
+        "champ": "associe.apport_numeraire",
+        "label": "Apport en numéraire",
+        "ordre": 110,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "apport"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "associe.dirigeant.dirigeant",
+        "label": "L'associé est-il également dirigeant de la société ?",
+        "ordre": 111,
+        "values": [
+          {
+            "label": "Oui",
+            "value": "1"
+          },
+          {
+            "label": "Non",
+            "value": "0"
+          }
+        ],
+        "is_required": false,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "information_dirigeant"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "associe.dirigeant.fonction",
+        "label": "Qualité de dirigeant",
+        "ordre": 112,
+        "values": [
+          {
+            "label": "Président",
+            "value": "Président"
+          },
+          {
+            "label": "Gérant",
+            "value": "Gérant"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "information_dirigeant"
+          },
+          {
+            "champ": "associe.dirigeant.dirigeant",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.identite_pere",
+        "label": "Nom et prénoms du père",
+        "ordre": 113,
+        "maxLength": 150,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "information_dirigeant"
+          },
+          {
+            "champ": "associe.dirigeant.dirigeant",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "text",
+        "champ": "associe.personne_physique.identite_mere",
+        "label": "Nom de jeune fille et prénoms de la mère",
+        "ordre": 114,
+        "maxLength": 150,
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "associe"
+          },
+          {
+            "champ": "add_modify_or_associe",
+            "value": "modify_associe"
+          },
+          {
+            "champ": "type_modification_associe",
+            "value": "information_dirigeant"
+          },
+          {
+            "champ": "associe.dirigeant.dirigeant",
+            "value": "1"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "Existe-t-il un dirigeant non associé?",
+        "label": "Existe-t-il un dirigeant non associé?",
+        "ordre": 114,
+        "values": [
+          {
+            "label": "Oui",
+            "value": "1"
+          },
+          {
+            "label": "Non",
+            "value": "0"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "dirigeantNonAssocie"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      },
+      {
+        "step": 1,
+        "type": "radio",
+        "champ": "add_modify_delete_dirigeant_non_associe",
+        "label": "Ajouter ou Modifier ou Supprimer un dirigeant non associé",
+        "ordre": 115,
+        "values": [
+          {
+            "label": "Ajouter un nouveau dirigeant non associé",
+            "value": "add_dirigeant_associe"
+          },
+          {
+            "label": "Modifier un dirigeant non associé",
+            "value": "modify_dirigeant_associe"
+          },
+          {
+            "label": "Supprimer un dirigeant non associé",
+            "value": "delete_dirigeant_associe"
+          }
+        ],
+        "is_required": true,
+        "depends_on_et": [
+          {
+            "champ": "step",
+            "value": "dirigeantNonAssocie"
+          }
+        ],
+        "has_dependency": true,
+        "has_et_dependency": true,
+        "has_or_dependency": false
+      }
+    ],
+    "key_word": "modifier_societe"
+  }
+]
