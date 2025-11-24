@@ -1,4 +1,4 @@
-# train_model.py (version corrigée)
+# train_model.py (version compatible avec toutes les versions de transformers)
 import torch
 from transformers import (
     AutoModelForCausalLM,
@@ -10,11 +10,13 @@ from transformers import (
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from datasets import load_dataset
 import json
+import transformers
 
 class FormGeneratorTrainer:
     def __init__(self, model_name="microsoft/phi-2"):
         self.model_name = model_name
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(f"Transformers version: {transformers.__version__}")
         
     def load_and_prepare_model(self):
         """
@@ -39,9 +41,9 @@ class FormGeneratorTrainer:
         
         # Configuration LoRA
         lora_config = LoraConfig(
-            r=16,  # Rang de la matrice LoRA
+            r=16,
             lora_alpha=32,
-            target_modules=["q_proj", "v_proj"],  # Adapter selon le modèle
+            target_modules=["q_proj", "v_proj"],
             lora_dropout=0.05,
             bias="none",
             task_type="CAUSAL_LM"
@@ -100,7 +102,10 @@ class FormGeneratorTrainer:
         tokenized_dataset = dataset.map(
             tokenize_function,
             batched=True,
-            remove_columns=dataset["train"].column_names
+            remove_columns=dataset["train"].column_names,
+            # Désactiver le cache pour éviter les warnings de hashing
+            load_from_cache_file=False,
+            desc="Tokenization"
         )
         
         print("Tokenization terminée")
@@ -115,36 +120,49 @@ class FormGeneratorTrainer:
         dataset = self.prepare_dataset()
         tokenized_dataset = self.tokenize_dataset(dataset)
         
-        # Configuration d'entraînement - VERSION CORRIGÉE
-        training_args = TrainingArguments(
-            output_dir=output_dir,
-            num_train_epochs=num_epochs,
-            per_device_train_batch_size=4,
-            per_device_eval_batch_size=4,
-            gradient_accumulation_steps=4,
-            learning_rate=2e-4,
-            fp16=True if self.device == "cuda" else False,
+        # Détecter la version de transformers pour utiliser les bons paramètres
+        transformers_version = tuple(int(x) for x in transformers.__version__.split('.')[:2])
+        use_new_api = transformers_version >= (4, 30)
+        
+        print(f"Utilisation de l'API: {'nouvelle' if use_new_api else 'ancienne'}")
+        
+        # Configuration d'entraînement - Compatible toutes versions
+        training_args_dict = {
+            "output_dir": output_dir,
+            "num_train_epochs": num_epochs,
+            "per_device_train_batch_size": 4,
+            "per_device_eval_batch_size": 4,
+            "gradient_accumulation_steps": 4,
+            "learning_rate": 2e-4,
+            "fp16": True if self.device == "cuda" else False,
             
-            # Stratégies de sauvegarde et évaluation - ALIGNÉES
-            evaluation_strategy="steps",  # ✅ Changé de "no" à "steps"
-            eval_steps=100,
-            save_strategy="steps",
-            save_steps=100,
+            # Stratégies - avec le bon nom selon la version
+            "save_strategy": "steps",
+            "save_steps": 100,
             
-            logging_steps=10,
-            save_total_limit=3,
-            load_best_model_at_end=True,  # ✅ Maintenant compatible
-            metric_for_best_model="loss",  # ✅ Ajouté pour sélectionner le meilleur modèle
-            greater_is_better=False,  # ✅ Pour la loss, plus petit = meilleur
+            "logging_steps": 10,
+            "save_total_limit": 3,
+            "load_best_model_at_end": True,
+            "metric_for_best_model": "loss",
+            "greater_is_better": False,
             
-            report_to="none",
-            warmup_steps=100,
-            optim="adamw_torch",
+            "report_to": "none",
+            "warmup_steps": 100,
+            "optim": "adamw_torch",
             
-            # Paramètres supplémentaires utiles
-            logging_dir=f"{output_dir}/logs",
-            push_to_hub=False,
-        )
+            "logging_dir": f"{output_dir}/logs",
+            "push_to_hub": False,
+        }
+        
+        # Ajouter le paramètre d'évaluation avec le bon nom
+        if use_new_api:
+            training_args_dict["eval_strategy"] = "steps"  # Nouvelle API
+            training_args_dict["eval_steps"] = 100
+        else:
+            training_args_dict["evaluation_strategy"] = "steps"  # Ancienne API
+            training_args_dict["eval_steps"] = 100
+        
+        training_args = TrainingArguments(**training_args_dict)
         
         # Data collator
         data_collator = DataCollatorForLanguageModeling(
@@ -183,7 +201,7 @@ class FormGeneratorTrainer:
         return trainer
 
 def main():
-    # Choix du modèle - options alternatives si phi-2 pose problème
+    # Choix du modèle
     models = {
         "phi-2": "microsoft/phi-2",
         "tinyllama": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
@@ -191,7 +209,7 @@ def main():
     }
     
     # Sélectionner le modèle
-    selected_model = "phi-2"  # Changez selon vos besoins
+    selected_model = "phi-2"
     
     print(f"Utilisation du modèle: {models[selected_model]}")
     
